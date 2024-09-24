@@ -32,7 +32,8 @@ func WebsocketListener(addr net.Addr) (net.Listener, http.Handler) {
 
 func (l wsListener) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	wsConn, err := websocket.Accept(w, r, &websocket.AcceptOptions{
-		Subprotocols: []string{"binary"},
+		OriginPatterns: []string{"*"},
+		Subprotocols:   []string{"binary"},
 	})
 	if err != nil {
 		w.WriteHeader(400)
